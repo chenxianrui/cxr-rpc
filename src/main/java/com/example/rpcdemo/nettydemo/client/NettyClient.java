@@ -67,9 +67,9 @@ public class NettyClient {
             if (futureChannel != null){
                 futureChannel.writeAndFlush(rpcRequest).addListener(future -> {
                     if (future.isSuccess()){
-                        logger.info("client send message: [{}]", rpcRequest.toString());
+                        logger.info("客户端发送消息: [{}]", rpcRequest.toString());
                     }else {
-                        logger.error("Send failled:", future.cause());
+                        logger.error("发送失败:", future.cause());
                     }
                 });
                 // 阻塞等待，直到Channel关闭
@@ -79,7 +79,7 @@ public class NettyClient {
                 return futureChannel.attr(key).get();
             }
         } catch (InterruptedException e) {
-            logger.error("occur exception when connect server:", e);
+            logger.error("连接服务端产生异常:", e);
         }
         return null;
     }

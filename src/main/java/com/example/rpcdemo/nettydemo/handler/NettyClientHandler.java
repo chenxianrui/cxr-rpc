@@ -21,7 +21,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg){
         try{
             RpcResponse rpcResponse = (RpcResponse) msg;
-            logger.info("client receive msg: [{}]", rpcResponse.toString());
+            logger.info("客户端收到信息: [{}]", rpcResponse.toString());
             // 生命一个 AttributeKey 对象
             AttributeKey<RpcResponse> key = AttributeKey.valueOf("rpcResponse");
             // 将服务端的返回结果保存到 AttributeMap 上，AttributeMap 可以看作是一个Channel的共享数据源
@@ -35,7 +35,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause){
-        logger.error("client caught exception", cause);
+        logger.error("客户端捕捉到异常", cause);
         ctx.close();
     }
 }

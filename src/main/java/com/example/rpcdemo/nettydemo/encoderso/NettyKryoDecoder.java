@@ -37,7 +37,7 @@ public class NettyKryoDecoder extends ByteToMessageDecoder {
             int dataLength = byteBuf.readInt();
             // 4.遇到不合理的情况直接return
             if (dataLength < 0 || byteBuf.readableBytes() < 0){
-                log.error("data length or byteBuf readableBytes is not valid");
+                log.error("数据长度或 byteBuf readableBytes 无效");
                 return;
             }
             // 5.如果可读字节数小于消息长度的话，说明是不完整的消息，重置readIndex
@@ -51,7 +51,7 @@ public class NettyKryoDecoder extends ByteToMessageDecoder {
             // 将bytes数组转换为我们需要的对象
             Object obj = serializer.deserialize(body, genericClass);
             list.add(obj);
-            log.info("successful decode ByteBuf to Object");
+            log.info("成功将 byteBuf 转换为对象");
         }
     }
 }

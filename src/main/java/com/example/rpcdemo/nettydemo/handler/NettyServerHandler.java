@@ -25,8 +25,8 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         try {
             RpcRequest rpcRequest = (RpcRequest) msg;
-            logger.info("server receive msg: [{}] ,times:[{}]", rpcRequest, atomicInteger.getAndIncrement());
-            RpcResponse messageFromServer = RpcResponse.builder().message("message from server").build();
+            logger.info("服务器收到信息: [{}] ,times:[{}]", rpcRequest, atomicInteger.getAndIncrement());
+            RpcResponse messageFromServer = RpcResponse.builder().message("服务端返回消息").build();
             ChannelFuture f = ctx.writeAndFlush(messageFromServer);
             f.addListener(ChannelFutureListener.CLOSE);
         } finally {
@@ -36,7 +36,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        logger.error("server catch exception",cause);
+        logger.error("服务端捕捉到异常",cause);
         ctx.close();
     }
 }
