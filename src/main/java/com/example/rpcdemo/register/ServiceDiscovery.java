@@ -10,12 +10,11 @@ import java.net.InetSocketAddress;
  */
 @SPI
 public interface ServiceDiscovery {
-
     /**
-     * 寻找服务
+     * 根据 rpcServiceName 获取远程服务地址
      *
-     * @param rpcServiceName rpc 服务端名称
-     * @return 服务端地址
+     * @param rpcServiceName 完整的服务名称（class name+group+version）
+     * @return 远程服务地址
      */
     InetSocketAddress lookupService(String rpcServiceName);
 }

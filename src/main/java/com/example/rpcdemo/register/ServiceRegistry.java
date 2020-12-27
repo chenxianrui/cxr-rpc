@@ -13,8 +13,8 @@ public interface ServiceRegistry {
     /**
      * 注册服务
      *
-     * @param rpcServiceName        rpc服务名称
-     * @param inetSocketAddress     服务地址
+     * @param rpcServiceName        完整的服务名称（class name+group+version）
+     * @param inetSocketAddress     远程服务地址
      */
-    void registerService(String rpcServiceName, InetSocketAddress inetSocketAddress);
+    InetSocketAddress registerService(String rpcServiceName, InetSocketAddress inetSocketAddress);
 }
