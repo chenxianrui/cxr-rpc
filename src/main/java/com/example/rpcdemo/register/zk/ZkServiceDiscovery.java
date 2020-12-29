@@ -4,6 +4,7 @@ import com.example.rpcdemo.enums.RpcErrorMessageEnum;
 import com.example.rpcdemo.exception.RpcException;
 import com.example.rpcdemo.loadbalance.LoadBalance;
 import com.example.rpcdemo.loadbalance.RandomLoadBalance;
+import com.example.rpcdemo.register.ServiceDiscovery;
 import com.example.rpcdemo.register.ServiceRegistry;
 import com.example.rpcdemo.register.zk.util.CuratorUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,7 @@ import java.util.List;
  * @Date 2020/12/27 21:02
  */
 @Slf4j
-public class ZkServiceDiscovery implements ServiceRegistry {
+public class ZkServiceDiscovery implements ServiceDiscovery {
     private final LoadBalance loadBalance;
 
     public ZkServiceDiscovery(){
@@ -25,7 +26,7 @@ public class ZkServiceDiscovery implements ServiceRegistry {
     }
 
     @Override
-    public InetSocketAddress registerService(String rpcServiceName, InetSocketAddress inetSocketAddress) {
+    public InetSocketAddress lookupService(String rpcServiceName) {
         CuratorFramework zkClient = CuratorUtils.getZkClient();
         List<String> serviceUrlList = CuratorUtils.getChildrenNodes(zkClient, rpcServiceName);
         if (serviceUrlList.size() == 0) {

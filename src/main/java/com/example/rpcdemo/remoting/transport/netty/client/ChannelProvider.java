@@ -35,8 +35,8 @@ public class ChannelProvider {
                 channelMap.remove(key);
             }
         }
-//        // 否则重新连接该 Channel
-//        Channel channel = nettyClient.doConnect(inetSocketAddress);
+        // 否则重新连接该 Channel
+//        Channel channel = NettyRpcClient.doConnect(inetSocketAddress);
 //        channelMap.put(key, channel);
         return null;
     }

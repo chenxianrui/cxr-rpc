@@ -1,5 +1,6 @@
 package com.example.rpcdemo.config;
 
+import com.example.rpcdemo.register.zk.util.CuratorUtils;
 import com.example.rpcdemo.utils.concurrent.threadpool.ThreadPoolFactoryUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,7 +25,7 @@ public class CustomShutdownHook {
     public void clearAll(){
         log.info("清除所有注册服务");
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-//            CuratorUtils.clearRegistry(CuratorUtils.getZkClient());
+            CuratorUtils.clearRegistry(CuratorUtils.getZkClient());
             ThreadPoolFactoryUtils.shutDownAllThreadPool();
         }));
     }
