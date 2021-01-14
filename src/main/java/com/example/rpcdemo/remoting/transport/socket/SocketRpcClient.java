@@ -2,7 +2,7 @@ package com.example.rpcdemo.remoting.transport.socket;
 
 import com.example.rpcdemo.exception.RpcException;
 import com.example.rpcdemo.extension.ExtensionLoader;
-import com.example.rpcdemo.register.ServiceDiscovery;
+import com.example.rpcdemo.registry.ServiceDiscovery;
 import com.example.rpcdemo.remoting.dto.RpcRequest;
 import com.example.rpcdemo.remoting.entity.RpcServiceProperties;
 import com.example.rpcdemo.remoting.transport.RpcRequestTransport;

@@ -4,7 +4,7 @@ import com.example.rpcdemo.enums.CompressTypeEnum;
 import com.example.rpcdemo.enums.SerializationTypeEnum;
 import com.example.rpcdemo.extension.ExtensionLoader;
 import com.example.rpcdemo.factory.SingletonFactory;
-import com.example.rpcdemo.register.ServiceDiscovery;
+import com.example.rpcdemo.registry.ServiceDiscovery;
 import com.example.rpcdemo.remoting.constants.RpcConstants;
 import com.example.rpcdemo.remoting.dto.RpcMessage;
 import com.example.rpcdemo.remoting.dto.RpcRequest;

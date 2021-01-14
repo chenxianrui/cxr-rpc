@@ -2,7 +2,7 @@ package com.example.rpcdemo.remoting.transport.netty.client;
 
 import com.example.rpcdemo.enums.CompressTypeEnum;
 import com.example.rpcdemo.enums.SerializationTypeEnum;
-import com.example.rpcdemo.register.ServiceDiscovery;
+import com.example.rpcdemo.registry.ServiceDiscovery;
 import com.example.rpcdemo.remoting.constants.RpcConstants;
 import com.example.rpcdemo.remoting.dto.RpcMessage;
 import com.example.rpcdemo.remoting.dto.RpcRequest;

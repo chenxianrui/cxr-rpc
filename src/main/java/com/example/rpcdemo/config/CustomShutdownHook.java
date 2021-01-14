@@ -1,6 +1,6 @@
 package com.example.rpcdemo.config;
 
-import com.example.rpcdemo.register.zk.util.CuratorUtils;
+import com.example.rpcdemo.registry.zk.util.CuratorUtils;
 import com.example.rpcdemo.utils.concurrent.threadpool.ThreadPoolFactoryUtils;
 import lombok.extern.slf4j.Slf4j;
 

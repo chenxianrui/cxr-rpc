@@ -1,14 +1,12 @@
 package com.example.rpcdemo.provider;
 
-import com.example.rpcdemo.demo.nettydemo.server.NettyServer;
 import com.example.rpcdemo.enums.RpcErrorMessageEnum;
 import com.example.rpcdemo.exception.RpcException;
 import com.example.rpcdemo.extension.ExtensionLoader;
 import com.example.rpcdemo.remoting.entity.RpcServiceProperties;
-import com.example.rpcdemo.remoting.transport.socket.SocketRpcServer;
 import lombok.extern.slf4j.Slf4j;
 
-import com.example.rpcdemo.register.ServiceRegistry;
+import com.example.rpcdemo.registry.ServiceRegistry;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;

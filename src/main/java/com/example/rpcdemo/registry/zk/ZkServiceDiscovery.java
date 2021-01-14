@@ -1,12 +1,11 @@
-package com.example.rpcdemo.register.zk;
+package com.example.rpcdemo.registry.zk;
 
 import com.example.rpcdemo.enums.RpcErrorMessageEnum;
 import com.example.rpcdemo.exception.RpcException;
 import com.example.rpcdemo.loadbalance.LoadBalance;
 import com.example.rpcdemo.loadbalance.RandomLoadBalance;
-import com.example.rpcdemo.register.ServiceDiscovery;
-import com.example.rpcdemo.register.ServiceRegistry;
-import com.example.rpcdemo.register.zk.util.CuratorUtils;
+import com.example.rpcdemo.registry.ServiceDiscovery;
+import com.example.rpcdemo.registry.zk.util.CuratorUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 

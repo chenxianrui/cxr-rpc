@@ -1,4 +1,4 @@
-package com.example.rpcdemo.register;
+package com.example.rpcdemo.registry;
 
 import com.example.rpcdemo.demo.nettydemo.kryoSerializerDemo.SPI;
 

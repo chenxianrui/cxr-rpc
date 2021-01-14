@@ -1,7 +1,7 @@
-package com.example.rpcdemo.register.zk;
+package com.example.rpcdemo.registry.zk;
 
-import com.example.rpcdemo.register.ServiceRegistry;
-import com.example.rpcdemo.register.zk.util.CuratorUtils;
+import com.example.rpcdemo.registry.ServiceRegistry;
+import com.example.rpcdemo.registry.zk.util.CuratorUtils;
 import org.apache.curator.framework.CuratorFramework;
 
 import java.net.InetSocketAddress;

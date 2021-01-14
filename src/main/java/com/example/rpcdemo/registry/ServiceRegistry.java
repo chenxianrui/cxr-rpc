@@ -1,4 +1,6 @@
-package com.example.rpcdemo.register;
+package com.example.rpcdemo.registry;
+
+import com.example.rpcdemo.demo.nettydemo.kryoSerializerDemo.SPI;
 
 import java.net.InetSocketAddress;
 
@@ -8,6 +10,7 @@ import java.net.InetSocketAddress;
  *
  * 服务注册
  */
+@SPI
 public interface ServiceRegistry {
 
     /**

@@ -77,10 +77,10 @@ public final class ExtensionLoader<T> {
     }
 
     private T createExtension(String name) {
-        // load all extension classes of type T from file and get specific one by name
+        // 从file中加载所有类型为T的扩展类，并按名称获取特定的扩展类
         Class<?> clazz = getExtensionClasses().get(name);
         if (clazz == null) {
-            throw new RuntimeException("No such extension of name " + name);
+            throw new RuntimeException("没有这样的扩展名 " + name);
         }
         T instance = (T) EXTENSION_INSTANCES.get(clazz);
         if (instance == null) {

@@ -1,4 +1,4 @@
-package com.example.rpcdemo.register.zk.util;
+package com.example.rpcdemo.registry.zk.util;
 
 import com.example.rpcdemo.enums.RpcConfigEnum;
 import com.example.rpcdemo.exception.RpcException;
@@ -32,7 +32,7 @@ public final class CuratorUtils {
     private static final Map<String, List<String>> SERVICE_ADDRESS_MAP = new ConcurrentHashMap<>();
     private static final Set<String> REGISTERED_PATH_SET = ConcurrentHashMap.newKeySet();
     private static CuratorFramework zkClient;
-    private static String defaultZookeeperAddress = "10.10.44.191:2181";
+    private static String defaultZookeeperAddress = "47.99.67.211:2181";
 
     private CuratorUtils() {
     }
@@ -49,7 +49,7 @@ public final class CuratorUtils {
             } else {
                 //eg: /my-rpc/github.javaguide.HelloService/127.0.0.1:9999
                 zkClient.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath(path);
-                log.info("The node was created successfully. The node is:[{}]", path);
+                log.info("节点创建成功. The node is:[{}]", path);
             }
             REGISTERED_PATH_SET.add(path);
         } catch (Exception e) {
@@ -90,7 +90,7 @@ public final class CuratorUtils {
                 throw new RpcException(e.getMessage(), e.getCause());
             }
         });
-        log.info("All registered services on the server are cleared:[{}]", REGISTERED_PATH_SET.toString());
+        log.info("所有注册服务被清除:[{}]", REGISTERED_PATH_SET.toString());
     }
 
     public static CuratorFramework getZkClient() {
