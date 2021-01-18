@@ -1,5 +1,6 @@
 package com.example.rpcdemo.remoting.transport.netty.client;
 
+import com.example.rpcdemo.demo.nettydemo.handler.NettyClientHandler;
 import com.example.rpcdemo.enums.CompressTypeEnum;
 import com.example.rpcdemo.enums.SerializationTypeEnum;
 import com.example.rpcdemo.registry.ServiceDiscovery;
@@ -8,15 +9,22 @@ import com.example.rpcdemo.remoting.dto.RpcMessage;
 import com.example.rpcdemo.remoting.dto.RpcRequest;
 import com.example.rpcdemo.remoting.dto.RpcResponse;
 import com.example.rpcdemo.remoting.transport.RpcRequestTransport;
+import com.example.rpcdemo.remoting.transport.netty.codec.RpcMessageDecoder;
+import com.example.rpcdemo.remoting.transport.netty.codec.RpcMessageEncoder;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author cxr
@@ -28,8 +36,31 @@ public final class NettyRpcClient implements RpcRequestTransport{
     private final ServiceDiscovery serviceDiscovery = null;
     private final UnprocessedRequests unprocessedRequests = null;
     private final ChannelProvider channelProvider = null;
-    private final Bootstrap bootstrap = null;
-    private final EventLoopGroup eventExecutors = null;
+    private final Bootstrap bootstrap;
+//    private final EventLoopGroup eventExecutors = null;
+    private final EventLoopGroup eventLoopGroup;
+
+    public NettyRpcClient() {
+        eventLoopGroup = new NioEventLoopGroup();
+        bootstrap = new Bootstrap();
+        bootstrap.group(eventLoopGroup)
+                .channel(NioSocketChannel.class)
+                .handler(new LoggingHandler(LogLevel.INFO))
+                //  The timeout period of the connection.
+                //  If this time is exceeded or the connection cannot be established, the connection fails.
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
+                .handler(new ChannelInitializer<SocketChannel>() {
+                    @Override
+                    protected void initChannel(SocketChannel ch) {
+                        ChannelPipeline p = ch.pipeline();
+                        // If no data is sent to the server within 15 seconds, a heartbeat request is sent
+                        p.addLast(new IdleStateHandler(0, 5, 0, TimeUnit.SECONDS));
+                        p.addLast(new RpcMessageEncoder());
+                        p.addLast(new RpcMessageDecoder());
+                        p.addLast(new NettyClientHandler());
+                    }
+                });
+    }
 
     @SneakyThrows
     public Channel doConnect(InetSocketAddress inetSocketAddress){

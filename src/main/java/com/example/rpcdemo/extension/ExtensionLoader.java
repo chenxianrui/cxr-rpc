@@ -5,6 +5,7 @@ import com.example.rpcdemo.utils.Holder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -21,7 +22,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Slf4j
 public final class ExtensionLoader<T> {
 
-    private static final String SERVICE_DIRECTORY = "META-INF/extensions/";
+    private static final String SERVICE_DIRECTORY = "META-INF.extensions/";
     private static final Map<Class<?>, ExtensionLoader<?>> EXTENSION_LOADERS = new ConcurrentHashMap<>();
     private static final Map<Class<?>, Object> EXTENSION_INSTANCES = new ConcurrentHashMap<>();
 
