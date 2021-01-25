@@ -28,7 +28,7 @@ public final class CuratorUtils {
 
     private static final int BASE_SLEEP_TIME = 1000;
     private static final int MAX_RETRIES = 3;
-    public static final String ZK_REGISTER_ROOT_PATH = "/my-rpc";
+    public static final String ZK_REGISTER_ROOT_PATH = "/my-rpc";    // zookeeper下路径
     private static final Map<String, List<String>> SERVICE_ADDRESS_MAP = new ConcurrentHashMap<>();
     private static final Set<String> REGISTERED_PATH_SET = ConcurrentHashMap.newKeySet();
     private static CuratorFramework zkClient;

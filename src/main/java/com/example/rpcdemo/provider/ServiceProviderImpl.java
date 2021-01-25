@@ -4,6 +4,7 @@ import com.example.rpcdemo.enums.RpcErrorMessageEnum;
 import com.example.rpcdemo.exception.RpcException;
 import com.example.rpcdemo.extension.ExtensionLoader;
 import com.example.rpcdemo.remoting.entity.RpcServiceProperties;
+import com.example.rpcdemo.remoting.transport.netty.server.NettyRpcServer;
 import lombok.extern.slf4j.Slf4j;
 
 import com.example.rpcdemo.registry.ServiceRegistry;
@@ -56,6 +57,11 @@ public class ServiceProviderImpl implements ServiceProvider {
     }
 
     @Override
+    public void publishService(Object service) {
+        this.publishService(service, RpcServiceProperties.builder().group("").version("").build());
+    }
+
+    @Override
     public void publishService(Object service, RpcServiceProperties rpcServiceProperties) {
         try {
             String host = InetAddress.getLocalHost().getHostAddress();
@@ -69,8 +75,4 @@ public class ServiceProviderImpl implements ServiceProvider {
         }
     }
 
-    @Override
-    public void publishService(Object service) {
-        this.publishService(service, RpcServiceProperties.builder().group("").version("").build());
-    }
 }

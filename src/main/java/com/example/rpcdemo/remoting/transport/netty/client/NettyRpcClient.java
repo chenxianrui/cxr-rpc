@@ -3,7 +3,9 @@ package com.example.rpcdemo.remoting.transport.netty.client;
 import com.example.rpcdemo.demo.nettydemo.handler.NettyClientHandler;
 import com.example.rpcdemo.enums.CompressTypeEnum;
 import com.example.rpcdemo.enums.SerializationTypeEnum;
+import com.example.rpcdemo.factory.SingletonFactory;
 import com.example.rpcdemo.registry.ServiceDiscovery;
+import com.example.rpcdemo.registry.zk.ZkServiceDiscovery;
 import com.example.rpcdemo.remoting.constants.RpcConstants;
 import com.example.rpcdemo.remoting.dto.RpcMessage;
 import com.example.rpcdemo.remoting.dto.RpcRequest;
@@ -33,9 +35,9 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public final class NettyRpcClient implements RpcRequestTransport{
 
-    private final ServiceDiscovery serviceDiscovery = null;
-    private final UnprocessedRequests unprocessedRequests = null;
-    private final ChannelProvider channelProvider = null;
+    private final ServiceDiscovery serviceDiscovery = new ZkServiceDiscovery();
+    private final UnprocessedRequests unprocessedRequests = SingletonFactory.getInstance(UnprocessedRequests.class);;
+    private final ChannelProvider channelProvider = SingletonFactory.getInstance(ChannelProvider.class);
     private final Bootstrap bootstrap;
 //    private final EventLoopGroup eventExecutors = null;
     private final EventLoopGroup eventLoopGroup;
@@ -66,9 +68,11 @@ public final class NettyRpcClient implements RpcRequestTransport{
     public Channel doConnect(InetSocketAddress inetSocketAddress){
         CompletableFuture<Channel> completableFuture = new CompletableFuture<>();
         bootstrap.connect(inetSocketAddress).addListener((ChannelFutureListener) future -> {
+            System.out.println(inetSocketAddress.toString());
             if (future.isSuccess()){
                 log.info("连接客户端 [{}] 成功", inetSocketAddress.toString());
                 completableFuture.complete(future.channel());
+                channelProvider.set(inetSocketAddress, future.channel());
             }else {
                 throw new IllegalStateException();
             }
@@ -83,6 +87,7 @@ public final class NettyRpcClient implements RpcRequestTransport{
         CompletableFuture<RpcResponse<Object>> resultFuture = new CompletableFuture<>();
         // 通过 rpcRequest 构造rpc服务名称
         String rpcServiceName = rpcRequest.toRpcProperties().toRpcServiceName();
+        rpcServiceName = "com.example.rpcdemo.hello.HelloServicetest2version2";
         // 获取服务地址
         InetSocketAddress inetSocketAddress = serviceDiscovery.lookupService(rpcServiceName);
         // 获取服务地址相关的channel

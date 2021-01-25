@@ -24,14 +24,14 @@ public interface ServiceProvider {
 
     /**
      *
+     * @param service  服务实例
+     */
+    void publishService(Object service);
+
+    /**
+     *
      * @param service               服务实例
      * @param rpcServiceProperties  服务实例相关属性
      */
     void publishService(Object service, RpcServiceProperties rpcServiceProperties);
-
-    /**
-     *
-     * @param service  服务实例
-     */
-    void publishService(Object service);
 }
