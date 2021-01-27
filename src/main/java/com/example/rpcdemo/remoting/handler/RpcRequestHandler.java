@@ -2,6 +2,7 @@ package com.example.rpcdemo.remoting.handler;
 
 import com.example.rpcdemo.exception.RpcException;
 import com.example.rpcdemo.factory.SingletonFactory;
+import com.example.rpcdemo.hello.HelloService;
 import com.example.rpcdemo.provider.ServiceProvider;
 import com.example.rpcdemo.provider.ServiceProviderImpl;
 import com.example.rpcdemo.remoting.dto.RpcRequest;
@@ -41,8 +42,11 @@ public class RpcRequestHandler {
      */
     private Object invokeTargetMethod(RpcRequest rpcRequest, Object service) {
         Object result;
+        System.out.println(service.getClass().getName());
         try {
             Method method = service.getClass().getMethod(rpcRequest.getMethodName(), rpcRequest.getParamTypes());
+//            Method method = service.getClass().getMethod("hello", HelloService.class);
+//            result = method.invoke(service, rpcRequest.getParameters());
             result = method.invoke(service, rpcRequest.getParameters());
             log.info("service:[{}] 成功调用方法:[{}]", rpcRequest.getInterfaceName(), rpcRequest.getMethodName());
         } catch (NoSuchMethodException | IllegalArgumentException | InvocationTargetException | IllegalAccessException e) {

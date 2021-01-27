@@ -1,10 +1,15 @@
 package com.example.rpcdemo.demo.nettydemo.handler;
 
-import com.example.rpcdemo.demo.nettydemo.dao.RpcResponse;
+import com.example.rpcdemo.factory.SingletonFactory;
+import com.example.rpcdemo.remoting.constants.RpcConstants;
+import com.example.rpcdemo.remoting.dto.RpcMessage;
+import com.example.rpcdemo.remoting.dto.RpcResponse;
+import com.example.rpcdemo.remoting.transport.netty.client.UnprocessedRequests;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.AttributeKey;
 import io.netty.util.ReferenceCountUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,19 +21,27 @@ import org.slf4j.LoggerFactory;
  */
 public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(NettyClientHandler.class);
+    private final UnprocessedRequests unprocessedRequests;
+
+    public NettyClientHandler() {
+        this.unprocessedRequests = SingletonFactory.getInstance(UnprocessedRequests.class);
+    }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg){
-        try{
-            RpcResponse rpcResponse = (RpcResponse) msg;
-            logger.info("客户端收到信息: [{}]", rpcResponse.toString());
-            // 生命一个 AttributeKey 对象
-            AttributeKey<RpcResponse> key = AttributeKey.valueOf("rpcResponse");
-            // 将服务端的返回结果保存到 AttributeMap 上，AttributeMap 可以看作是一个Channel的共享数据源
-            // AttributeMap的key是ArrributeKey，value是Attribute
-            ctx.channel().attr(key).set(rpcResponse);
-            ctx.channel().close();
-        }finally {
+        try {
+            logger.info("客户端收到消息: [{}]", msg);
+            if (msg instanceof RpcMessage) {
+                RpcMessage tmp = (RpcMessage) msg;
+                byte messageType = tmp.getMessageType();
+                if (messageType == RpcConstants.HEARTBEAT_RESPONSE_TYPE) {
+                    logger.info("获取到消息 [{}]", tmp.getData());
+                } else if (messageType == RpcConstants.RESPONSE_TYPE) {
+                    RpcResponse<Object> rpcResponse = (RpcResponse<Object>) tmp.getData();
+                    unprocessedRequests.complete(rpcResponse);
+                }
+            }
+        } finally {
             ReferenceCountUtil.release(msg);
         }
     }

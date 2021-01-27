@@ -88,6 +88,7 @@ public final class NettyRpcClient implements RpcRequestTransport{
         // 通过 rpcRequest 构造rpc服务名称
         String rpcServiceName = rpcRequest.toRpcProperties().toRpcServiceName();
         rpcServiceName = "com.example.rpcdemo.hello.HelloServicetest2version2";
+//        System.out.println(rpcServiceName);
         // 获取服务地址
         InetSocketAddress inetSocketAddress = serviceDiscovery.lookupService(rpcServiceName);
         // 获取服务地址相关的channel

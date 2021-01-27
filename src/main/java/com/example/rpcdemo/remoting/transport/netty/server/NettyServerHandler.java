@@ -65,7 +65,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                         rpcMessage.setMessageType(RpcConstants.RESPONSE_TYPE);
                         rpcMessage.setData(rpcResponse);
                         ctx.writeAndFlush(rpcMessage).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
-                        log.error("not writable now, message dropped");
+                        log.error("现在不能写入消息，丢失数据包");
                     }
                 }
 
