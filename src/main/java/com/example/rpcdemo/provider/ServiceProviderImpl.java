@@ -49,6 +49,9 @@ public class ServiceProviderImpl implements ServiceProvider {
 
     @Override
     public Object getService(RpcServiceProperties rpcServiceProperties) {
+        // --------------------------------------------------------
+        rpcServiceProperties.setServiceName("com.example.rpcdemo.hello.HelloServicetest2version2");
+        // --------------------------------------------------------
         Object service = serviceMap.get(rpcServiceProperties.getServiceName());
         if (null == service){
             throw new RpcException(RpcErrorMessageEnum.SERVICE_CAN_NOT_BE_FOUND);

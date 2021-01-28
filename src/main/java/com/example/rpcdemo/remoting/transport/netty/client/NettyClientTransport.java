@@ -45,6 +45,7 @@ public class NettyClientTransport implements RpcRequestTransport {
         InetSocketAddress inetSocketAddress = serviceDiscovery.lookupService(rpcServiceName);
         // 获取服务器地址相关的通道
         Channel channel = channelProvider.get(inetSocketAddress);
+        if (channel == null) System.out.println("true");
         if (channel != null && channel.isActive()) {
             // 保存未处理的请求
             unprocessedRequests.put(rpcRequest.getRequestId(), resultFuture);
