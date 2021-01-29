@@ -20,7 +20,7 @@ public class CustomShutdownHook {
     }
 
     /**
-     * 清楚所有注册服务
+     * 清除所有注册服务
      */
     public void clearAll(){
         log.info("清除所有注册服务");

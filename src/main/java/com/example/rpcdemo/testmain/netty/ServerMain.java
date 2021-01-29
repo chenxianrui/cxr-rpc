@@ -19,7 +19,7 @@ public class ServerMain {
         HelloService helloService2 = new HelloServiceImpl2();
         RpcServiceProperties rpcServiceProperties = RpcServiceProperties.builder()
                 .group("test2").version("version2").build();
-        nettyRpcServer.registerService(helloService2, rpcServiceProperties);
+        nettyRpcServer.registerService(helloService2, rpcServiceProperties);    // 服务端向 zookeeper 注册服务
         nettyRpcServer.start();
     }
 }

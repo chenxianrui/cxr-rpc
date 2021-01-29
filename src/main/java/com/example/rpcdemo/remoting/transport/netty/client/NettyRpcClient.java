@@ -1,6 +1,5 @@
 package com.example.rpcdemo.remoting.transport.netty.client;
 
-import com.example.rpcdemo.demo.nettydemo.handler.NettyClientHandler;
 import com.example.rpcdemo.enums.CompressTypeEnum;
 import com.example.rpcdemo.enums.SerializationTypeEnum;
 import com.example.rpcdemo.factory.SingletonFactory;
@@ -59,7 +58,7 @@ public final class NettyRpcClient implements RpcRequestTransport{
                         p.addLast(new IdleStateHandler(0, 5, 0, TimeUnit.SECONDS));
                         p.addLast(new RpcMessageEncoder());
                         p.addLast(new RpcMessageDecoder());
-                        p.addLast(new NettyClientHandler());
+                        p.addLast(new NettyRpcClientHandler());
                     }
                 });
     }
@@ -68,7 +67,6 @@ public final class NettyRpcClient implements RpcRequestTransport{
     public Channel doConnect(InetSocketAddress inetSocketAddress){
         CompletableFuture<Channel> completableFuture = new CompletableFuture<>();
         bootstrap.connect(inetSocketAddress).addListener((ChannelFutureListener) future -> {
-            System.out.println(inetSocketAddress.toString());
             if (future.isSuccess()){
                 log.info("连接客户端 [{}] 成功", inetSocketAddress.toString());
                 completableFuture.complete(future.channel());
