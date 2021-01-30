@@ -11,6 +11,8 @@ RPC（Remote Procedure Call） 是一种远程过程调用的协议，其让进�
 方法，数据等封装进 RpcRequeset 对象中，经过 Kyro 的序列化成二进制内容发送到生产者端，
 生产者再将接收到的数据经过反序列化成对象后寻找相应的接口与方法进行调用，最后再发送响应成功消息
 给消费端，告诉他调用方法与接口成功。
+### 项目模块概览
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210130225929623.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDMzMTE3Ng==,size_16,color_FFFFFF,t_70#pic_center)
 ### 项目运行截图
 Server：
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210130225350969.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDMzMTE3Ng==,size_16,color_FFFFFF,t_70#pic_center)
