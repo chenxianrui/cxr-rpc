@@ -13,6 +13,11 @@ public class ServerMain {
     public static void main(String[] args) {
 //        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(ServerMain.class);
 //        NettyRpcServer nettyRpcServer = (NettyRpcServer) applicationContext.getBean("nettyRpcServer");
+        System.out.println("-----");
+        System.out.println("-----");
+        System.out.println("-----");
+        System.out.println("-----");
+        System.out.println("-----");
         NettyRpcServer nettyRpcServer = new NettyRpcServer();
         HelloService helloService2 = new HelloServiceImpl2();
         RpcServiceProperties rpcServiceProperties = RpcServiceProperties.builder()
