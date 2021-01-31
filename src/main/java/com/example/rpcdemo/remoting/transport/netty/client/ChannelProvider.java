@@ -1,7 +1,7 @@
 package com.example.rpcdemo.remoting.transport.netty.client;
 
-import com.example.rpcdemo.demo.nettydemo.client.NettyClient;
-import com.example.rpcdemo.factory.SingletonFactory;
+import com.example.cxrrpc.demo.nettydemo.client.NettyClient;
+import com.example.cxrrpc.factory.SingletonFactory;
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,17 +18,14 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class ChannelProvider {
     private final Map<String, Channel> channelMap;
-//    private final NettyRpcClient nettyRpcClient;
 
     public ChannelProvider(){
         channelMap = new ConcurrentHashMap<>();
-//        nettyRpcClient = SingletonFactory.getInstance(NettyRpcClient.class);
     }
 
     public Channel get(InetSocketAddress inetSocketAddress){
         String key = inetSocketAddress.toString();
 //        Channel channel = channelMap.get(key);
-        System.out.println(key);
         // 确认对应地址是否有链接
         if (channelMap.containsKey(key)){
             Channel channel = channelMap.get(key);
@@ -48,7 +45,6 @@ public class ChannelProvider {
 
     public void set(InetSocketAddress inetSocketAddress, Channel channel){
         String key = inetSocketAddress.toString();
-        System.out.println(key);
         channelMap.put(key, channel);
     }
 

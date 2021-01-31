@@ -1,15 +1,16 @@
 package com.example.rpcdemo.remoting.transport.netty.client;
 
-import com.example.rpcdemo.enums.CompressTypeEnum;
-import com.example.rpcdemo.enums.SerializationTypeEnum;
-import com.example.rpcdemo.extension.ExtensionLoader;
-import com.example.rpcdemo.factory.SingletonFactory;
-import com.example.rpcdemo.registry.ServiceDiscovery;
-import com.example.rpcdemo.remoting.constants.RpcConstants;
-import com.example.rpcdemo.remoting.dto.RpcMessage;
-import com.example.rpcdemo.remoting.dto.RpcRequest;
-import com.example.rpcdemo.remoting.dto.RpcResponse;
-import com.example.rpcdemo.remoting.transport.RpcRequestTransport;
+import com.example.cxrrpc.enums.CompressTypeEnum;
+import com.example.cxrrpc.enums.SerializationTypeEnum;
+import com.example.cxrrpc.extension.ExtensionLoader;
+import com.example.cxrrpc.factory.SingletonFactory;
+import com.example.cxrrpc.registry.ServiceDiscovery;
+import com.example.cxrrpc.remoting.constants.RpcConstants;
+import com.example.cxrrpc.remoting.dto.RpcMessage;
+import com.example.cxrrpc.remoting.dto.RpcRequest;
+import com.example.cxrrpc.remoting.dto.RpcResponse;
+import com.example.cxrrpc.remoting.transport.RpcRequestTransport;
+import com.example.cxrrpc.remoting.transport.netty.client.UnprocessedRequests;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +46,6 @@ public class NettyClientTransport implements RpcRequestTransport {
         InetSocketAddress inetSocketAddress = serviceDiscovery.lookupService(rpcServiceName);
         // 获取服务器地址相关的通道
         Channel channel = channelProvider.get(inetSocketAddress);
-        if (channel == null) System.out.println("true");
         if (channel != null && channel.isActive()) {
             // 保存未处理的请求
             unprocessedRequests.put(rpcRequest.getRequestId(), resultFuture);

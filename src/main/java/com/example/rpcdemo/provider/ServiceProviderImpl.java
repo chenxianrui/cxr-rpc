@@ -1,13 +1,14 @@
 package com.example.rpcdemo.provider;
 
-import com.example.rpcdemo.enums.RpcErrorMessageEnum;
-import com.example.rpcdemo.exception.RpcException;
-import com.example.rpcdemo.extension.ExtensionLoader;
-import com.example.rpcdemo.remoting.entity.RpcServiceProperties;
-import com.example.rpcdemo.remoting.transport.netty.server.NettyRpcServer;
+import com.example.cxrrpc.enums.RpcErrorMessageEnum;
+import com.example.cxrrpc.exception.RpcException;
+import com.example.cxrrpc.extension.ExtensionLoader;
+import com.example.cxrrpc.provider.ServiceProvider;
+import com.example.cxrrpc.remoting.entity.RpcServiceProperties;
+import com.example.cxrrpc.remoting.transport.netty.server.NettyRpcServer;
 import lombok.extern.slf4j.Slf4j;
 
-import com.example.rpcdemo.registry.ServiceRegistry;
+import com.example.cxrrpc.registry.ServiceRegistry;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
@@ -49,9 +50,6 @@ public class ServiceProviderImpl implements ServiceProvider {
 
     @Override
     public Object getService(RpcServiceProperties rpcServiceProperties) {
-        // --------------------------------------------------------
-        rpcServiceProperties.setServiceName("com.example.rpcdemo.hello.HelloServicetest2version2");
-        // --------------------------------------------------------
         Object service = serviceMap.get(rpcServiceProperties.getServiceName());
         if (null == service){
             throw new RpcException(RpcErrorMessageEnum.SERVICE_CAN_NOT_BE_FOUND);

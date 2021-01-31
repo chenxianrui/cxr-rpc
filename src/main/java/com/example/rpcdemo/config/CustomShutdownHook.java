@@ -1,7 +1,7 @@
 package com.example.rpcdemo.config;
 
 import com.example.rpcdemo.registry.zk.util.CuratorUtils;
-import com.example.rpcdemo.utils.concurrent.threadpool.ThreadPoolFactoryUtils;
+import com.example.cxrrpc.utils.concurrent.threadpool.ThreadPoolFactoryUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -20,7 +20,7 @@ public class CustomShutdownHook {
     }
 
     /**
-     * 清楚所有注册服务
+     * 清除所有注册服务
      */
     public void clearAll(){
         log.info("清除所有注册服务");

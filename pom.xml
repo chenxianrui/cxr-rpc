@@ -3,9 +3,9 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.example</groupId>
-    <artifactId>rpc-demo</artifactId>
+    <artifactId>cxr-rpc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>rpc-demo</name>
+    <name>cxr-rpc</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -135,7 +135,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.4.1</version>
                 <configuration>
-                    <mainClass>com.example.rpcdemo.RpcDemoApplication</mainClass>
+                    <mainClass>com.example.cxrrpc.CxrRpcApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

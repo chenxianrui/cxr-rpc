@@ -1,10 +1,10 @@
 package com.example.rpcdemo.testmain.netty;
 
-import com.example.rpcdemo.demo.nettydemo.dao.RpcResponse;
-import com.example.rpcdemo.hello.HelloService;
-import com.example.rpcdemo.hello.impl.HelloServiceImpl2;
-import com.example.rpcdemo.remoting.entity.RpcServiceProperties;
-import com.example.rpcdemo.remoting.transport.netty.server.NettyRpcServer;
+import com.example.cxrrpc.demo.nettydemo.dao.RpcResponse;
+import com.example.cxrrpc.hello.HelloService;
+import com.example.cxrrpc.hello.impl.HelloServiceImpl2;
+import com.example.cxrrpc.remoting.entity.RpcServiceProperties;
+import com.example.cxrrpc.remoting.transport.netty.server.NettyRpcServer;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -19,7 +19,7 @@ public class ServerMain {
         HelloService helloService2 = new HelloServiceImpl2();
         RpcServiceProperties rpcServiceProperties = RpcServiceProperties.builder()
                 .group("test2").version("version2").build();
-        nettyRpcServer.registerService(helloService2, rpcServiceProperties);
+        nettyRpcServer.registerService(helloService2, rpcServiceProperties);    // 服务端向 zookeeper 注册服务
         nettyRpcServer.start();
     }
 }

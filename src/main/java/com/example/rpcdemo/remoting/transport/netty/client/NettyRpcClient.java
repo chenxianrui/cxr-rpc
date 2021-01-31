@@ -1,18 +1,19 @@
 package com.example.rpcdemo.remoting.transport.netty.client;
 
-import com.example.rpcdemo.demo.nettydemo.handler.NettyClientHandler;
-import com.example.rpcdemo.enums.CompressTypeEnum;
-import com.example.rpcdemo.enums.SerializationTypeEnum;
-import com.example.rpcdemo.factory.SingletonFactory;
-import com.example.rpcdemo.registry.ServiceDiscovery;
-import com.example.rpcdemo.registry.zk.ZkServiceDiscovery;
-import com.example.rpcdemo.remoting.constants.RpcConstants;
-import com.example.rpcdemo.remoting.dto.RpcMessage;
-import com.example.rpcdemo.remoting.dto.RpcRequest;
-import com.example.rpcdemo.remoting.dto.RpcResponse;
-import com.example.rpcdemo.remoting.transport.RpcRequestTransport;
-import com.example.rpcdemo.remoting.transport.netty.codec.RpcMessageDecoder;
-import com.example.rpcdemo.remoting.transport.netty.codec.RpcMessageEncoder;
+import com.example.cxrrpc.demo.nettydemo.handler.NettyClientHandler;
+import com.example.cxrrpc.enums.CompressTypeEnum;
+import com.example.cxrrpc.enums.SerializationTypeEnum;
+import com.example.cxrrpc.factory.SingletonFactory;
+import com.example.cxrrpc.registry.ServiceDiscovery;
+import com.example.cxrrpc.registry.zk.ZkServiceDiscovery;
+import com.example.cxrrpc.remoting.constants.RpcConstants;
+import com.example.cxrrpc.remoting.dto.RpcMessage;
+import com.example.cxrrpc.remoting.dto.RpcRequest;
+import com.example.cxrrpc.remoting.dto.RpcResponse;
+import com.example.cxrrpc.remoting.transport.RpcRequestTransport;
+import com.example.cxrrpc.remoting.transport.netty.client.UnprocessedRequests;
+import com.example.cxrrpc.remoting.transport.netty.codec.RpcMessageDecoder;
+import com.example.cxrrpc.remoting.transport.netty.codec.RpcMessageEncoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -87,7 +88,7 @@ public final class NettyRpcClient implements RpcRequestTransport{
         CompletableFuture<RpcResponse<Object>> resultFuture = new CompletableFuture<>();
         // 通过 rpcRequest 构造rpc服务名称
         String rpcServiceName = rpcRequest.toRpcProperties().toRpcServiceName();
-        rpcServiceName = "com.example.rpcdemo.hello.HelloServicetest2version2";
+        rpcServiceName = "com.example.cxrrpc.hello.HelloServicetest2version2";
 //        System.out.println(rpcServiceName);
         // 获取服务地址
         InetSocketAddress inetSocketAddress = serviceDiscovery.lookupService(rpcServiceName);
