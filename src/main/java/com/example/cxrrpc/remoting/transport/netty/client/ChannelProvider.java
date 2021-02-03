@@ -36,9 +36,10 @@ public class ChannelProvider {
             }
         }
         // 否则重新连接该 Channel
-//        Channel channel = nettyRpcClient.doConnect(inetSocketAddress);
-//        channelMap.put(key, channel);
-        return null;
+        NettyRpcClient nettyRpcClient = new NettyRpcClient();
+        Channel channel = nettyRpcClient.doConnect(inetSocketAddress);
+        channelMap.put(key, channel);
+        return channel;
     }
 
     public void set(InetSocketAddress inetSocketAddress, Channel channel){

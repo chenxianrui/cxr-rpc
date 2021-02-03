@@ -15,9 +15,6 @@ import java.net.InetSocketAddress;
  */
 public class ProxyClient {
     public static void main(String[] args) {
-        InetSocketAddress inetSocketAddress = new InetSocketAddress("192.168.231.1",9998);
-        NettyRpcClient nettyRpcClient = new NettyRpcClient();
-        nettyRpcClient.doConnect(inetSocketAddress);
         NettyClientTransport nettyClientTransport = new NettyClientTransport();
         RpcServiceProperties rpcServiceProperties = RpcServiceProperties.builder()
                 .group("test2").version("version2").build();
