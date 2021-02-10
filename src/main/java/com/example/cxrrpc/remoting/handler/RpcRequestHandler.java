@@ -41,7 +41,6 @@ public class RpcRequestHandler {
      */
     private Object invokeTargetMethod(RpcRequest rpcRequest, Object service) {
         Object result;
-        System.out.println(service.getClass().getName());
         try {
             Method method = service.getClass().getMethod(rpcRequest.getMethodName(), rpcRequest.getParamTypes());
 //            Method method = service.getClass().getMethod("hello", HelloService.class);

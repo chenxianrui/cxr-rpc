@@ -6,6 +6,7 @@
     <artifactId>cxr-rpc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>cxr-rpc</name>
+    <packaging>pom</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -28,7 +29,14 @@
         <!--logging-->
         <slf4j.version>1.7.25</slf4j.version>
     </properties>
-
+    <modules>
+        <module>crpc-remoting</module>
+        <module>crpc-common</module>
+        <module>crpc-registry</module>
+        <module>crpc-monitor</module>
+        <module>crpc-example-server</module>
+        <module>crpc-example-client</module>
+    </modules>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
