@@ -34,8 +34,8 @@
         <module>crpc-common</module>
         <module>crpc-registry</module>
         <module>crpc-monitor</module>
-        <module>crpc-example-server</module>
         <module>crpc-example-client</module>
+        <module>crpc-example-server</module>
     </modules>
     <dependencies>
         <dependency>

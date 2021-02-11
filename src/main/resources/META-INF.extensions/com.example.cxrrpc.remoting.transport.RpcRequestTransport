@@ -1,1 +1,0 @@
-nettyClientTransport=com.example.cxrrpc.remoting.transport.netty.client.NettyClientTransport
