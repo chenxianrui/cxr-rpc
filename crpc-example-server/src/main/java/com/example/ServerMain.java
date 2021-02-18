@@ -16,7 +16,7 @@ public class ServerMain {
         NettyRpcServer nettyRpcServer = new NettyRpcServer();
         HelloService helloService2 = new HelloServiceImpl2();
         RpcServiceProperties rpcServiceProperties = RpcServiceProperties.builder()
-                .group("test2").version("version2").build();
+                .group("test3").version("version3").build();
         nettyRpcServer.registerService(helloService2, rpcServiceProperties);    // 服务端向 zookeeper 注册服务
         nettyRpcServer.start();
     }

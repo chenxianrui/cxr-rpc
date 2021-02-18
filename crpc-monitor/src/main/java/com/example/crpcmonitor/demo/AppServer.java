@@ -18,7 +18,7 @@ public class AppServer {
     /**
      * zookeeper中集群服务器的总节点
      */
-    private String groupNode = "sgroup";
+    private String groupNode = "my-rpc";
     private ZooKeeper zooKeeper;
     /**
      * 服务器创建的节点的路径

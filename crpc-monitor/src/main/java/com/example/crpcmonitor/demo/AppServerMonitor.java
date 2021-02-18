@@ -18,7 +18,7 @@ import org.apache.zookeeper.data.Stat;
  * @Date 2021/2/17 22:08
  */
 public class AppServerMonitor implements Watcher{
-    private String groupNode = "sgroup";
+    private String groupNode = "my-rpc";
     private ZooKeeper zk;
     private Stat stat = new Stat();
     //服务器信息，包含了服务器名称、负载两个信息,使用map存储，key是服务器节点path,value是服务器信息对象

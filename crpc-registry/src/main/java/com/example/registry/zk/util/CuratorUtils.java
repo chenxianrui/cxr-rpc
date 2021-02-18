@@ -103,10 +103,10 @@ public final class CuratorUtils {
         if (zkClient != null && zkClient.getState() == CuratorFrameworkState.STARTED) {
             return zkClient;
         }
-        // 重试策略。重试3次，将增加重试之间的睡眠时间。
+        // 重试策略，重试3次，将增加重试之间的睡getChildren眠时间。
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(BASE_SLEEP_TIME, MAX_RETRIES);
         zkClient = CuratorFrameworkFactory.builder()
-                // the server to connect to (can be a server list)
+                // 连接服务
                 .connectString(defaultZookeeperAddress)
                 .retryPolicy(retryPolicy)
                 .build();
