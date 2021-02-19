@@ -1,7 +1,7 @@
 package com.example.crpcmonitor.monitor.zk;
 
+import com.example.crpcmonitor.dto.ServiceInfo;
 import com.example.crpcmonitor.monitor.ServiceMonitor;
-import com.example.dto.ServiceInfo;
 import com.example.enums.RpcConfigEnum;
 import com.example.factory.SingletonFactory;
 import lombok.extern.slf4j.Slf4j;

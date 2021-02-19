@@ -1,4 +1,4 @@
-package com.example.dto;
+package com.example.crpcmonitor.dto;
 
 import lombok.*;
 
