@@ -1,0 +1,17 @@
+server:
+  port: 8082
+spring:
+  # RabbitMQ 配置
+  rabbitmq:
+    host: 121.196.104.251
+    port: 5673
+    username: guest
+    password: guest
+    virtual-host: /
+    # 开启消息发送确认
+    publisher-confirms: true
+    publisher-returns: true
+    listener:
+      simple:
+        acknowledge-mode: manual
+

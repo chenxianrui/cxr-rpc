@@ -55,7 +55,6 @@
         </el-dialog>
     </section>
 </template>
-
 <script>
     import util from '../../common/js/util'
     import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
@@ -117,6 +116,41 @@
             },
             getSearchData() {
               // 搜索逻辑在这写
+              var websocket = null
+              console.log("---")
+              if ('WebSocket' in window) {
+                console.log("---")
+                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://'
+                websocket = new WebSocket(protocol + 'localhost:8082/ws/1')
+              } else {
+                alert('该浏览器不支持WebSocket')
+              }
+
+              websocket.onopen = function(event) {
+                // heartCheck.reset().start();
+                console.log('建立WebSocket连接')
+              }
+
+              websocket.onclose = function(event) {
+                console.log('断开WebSocket连接')
+              }
+
+              websocket.onmessage = function(event) {
+                console.log('收到消息' + event.data)
+              }
+
+              websocket.onerror = function(event) {
+                console.log('websocket通信发生错误')
+              }
+
+              window.onbeforeunload = function(event) {
+                websocket.close()
+              }
+            },
+          methods: {
+            handleClickOutside() {
+              this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
+            }
             },
             //删除
             handleDel: function (index, row) {
