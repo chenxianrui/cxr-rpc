@@ -99,6 +99,41 @@
             }
         },
         methods: {
+          initWebSocket () {
+            // 连接错误
+            this.websocket.onerror = this.setErrorMessage
+
+            // 连接成功
+            this.websocket.onopen = this.setOnopenMessage
+
+            // 收到消息的回调
+            this.websocket.onmessage = this.setOnmessageMessage
+
+            // 连接关闭的回调
+            this.websocket.onclose = this.setOncloseMessage
+
+            // 监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+            window.onbeforeunload = this.onbeforeunload
+          },
+          setErrorMessage () {
+            console.log('WebSocket连接发生错误   状态码：' + this.websocket.readyState)
+          },
+          setOnopenMessage () {
+            console.log('WebSocket连接成功    状态码：' + this.websocket.readyState)
+          },
+          setOnmessageMessage (event) {
+            // 根据服务器推送的消息做自己的业务处理
+            console.log('服务端返回：' + event.data)
+          },
+          setOncloseMessage () {
+            console.log('WebSocket连接关闭    状态码：' + this.websocket.readyState)
+          },
+          onbeforeunload () {
+            this.closeWebSocket()
+          },
+          closeWebSocket () {
+            this.websocket.close()
+          },
             handleCurrentChange(val) {
                 this.page = val;
                 this.getData();
@@ -116,36 +151,6 @@
             },
             getSearchData() {
               // 搜索逻辑在这写
-              var websocket = null
-              console.log("---")
-              if ('WebSocket' in window) {
-                console.log("---")
-                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://'
-                websocket = new WebSocket(protocol + 'localhost:8082/ws/1')
-              } else {
-                alert('该浏览器不支持WebSocket')
-              }
-
-              websocket.onopen = function(event) {
-                // heartCheck.reset().start();
-                console.log('建立WebSocket连接')
-              }
-
-              websocket.onclose = function(event) {
-                console.log('断开WebSocket连接')
-              }
-
-              websocket.onmessage = function(event) {
-                console.log('收到消息' + event.data)
-              }
-
-              websocket.onerror = function(event) {
-                console.log('websocket通信发生错误')
-              }
-
-              window.onbeforeunload = function(event) {
-                websocket.close()
-              }
             },
           methods: {
             handleClickOutside() {
@@ -208,6 +213,17 @@
         },
         mounted() {
             this.getData();
+          // WebSocket
+          if ('WebSocket' in window) {
+            this.websocket = new WebSocket('ws://localhost:8082/push/websocket')
+            // alert('连接浏览器')
+            this.initWebSocket()
+          } else {
+            alert('当前浏览器 不支持')
+          }
+        },
+      beforeDestroy () {
+        this.onbeforeunload()
         }
     }
 

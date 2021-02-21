@@ -2,6 +2,7 @@ package com.example.crpcmonitor.monitor.zk;
 
 import com.example.crpcmonitor.dto.ServiceInfo;
 import com.example.crpcmonitor.monitor.ServiceMonitor;
+import com.example.crpcmonitor.rbmq.websocket.WebSocketServer;
 import com.example.enums.RpcConfigEnum;
 import com.example.factory.SingletonFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,15 @@ import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
 import org.omg.CORBA.ServiceInformation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.ResourceLoaderAware;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -30,12 +39,15 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Date 2021/2/18 14:17
  */
 @Slf4j
-public class ServiceMonitorImpl implements ServiceMonitor {
+@Service
+public class ServiceMonitorImpl implements ServiceMonitor{
+
+    @Autowired
+    private WebSocketServer webSocketServer;
 
     private static final int BASE_SLEEP_TIME = 1000;
     private static final int MAX_RETRIES = 3;
     private static CuratorFramework zkClient;
-    private static Stat stat = new Stat();
     private Map<String, ServiceInfo> serviceInfoMap = new ConcurrentHashMap<>();
     private static final String ZK_REGISTER_ROOT_PATH = "/my-rpc";  // zookeeper 下的路径
     private static String defaultZookeeperAddress = "47.99.67.211:2181";
@@ -82,6 +94,7 @@ public class ServiceMonitorImpl implements ServiceMonitor {
             log.info("更新服务器负载信息："+serviceInfo);
             log.info("服务器列表最新信息为："+serviceInfoMap);
         }
+        webSocketServer.sendInfo("更新服务器负载信息："+serviceInfo);
     }
 
     @Override
@@ -120,4 +133,5 @@ public class ServiceMonitorImpl implements ServiceMonitor {
         log.info("成功注册 watcher!");
         childrenCache.start(PathChildrenCache.StartMode.POST_INITIALIZED_EVENT);
     }
+
 }
