@@ -56,7 +56,7 @@
 	export default {
 		data() {
 			return {
-				sysName:'CXR-RPC-ADMIN',
+				sysName:'cxr-rpc-admin',
 				collapsed:false,
 				sysUserName: '',
 				sysUserAvatar: '',

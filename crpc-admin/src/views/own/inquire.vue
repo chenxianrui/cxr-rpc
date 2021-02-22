@@ -2,7 +2,7 @@
     <section>
         <!--工具条-->
         <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" :model="filters">
+            <el-form :inline="true" :model="filters" style="float: left">
                 <el-form-item>
                     <el-input v-model="filters.name" placeholder="输入服务名"></el-input>
                 </el-form-item>
@@ -12,6 +12,14 @@
                 <!--<el-form-item>-->
                     <!--<el-button type="primary" @click="handleAdd">新增</el-button>-->
                 <!--</el-form-item>-->
+            </el-form>
+            <el-form :inline="true" :model="filters" style="float: right">
+              <el-form-item>
+                <el-button type="primary" v-on:click="provide">提供者</el-button>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" v-on:click="consume">消费者</el-button>
+              </el-form-item>
             </el-form>
         </el-col>
 
@@ -27,7 +35,7 @@
             </el-table-column>
             <el-table-column prop="version" label="版本" sortable>
             </el-table-column>
-            <el-table-column prop="application" label="应用" sortable>
+            <el-table-column prop="application" label="负载" sortable>
             </el-table-column>
             <el-table-column prop="ip" label="ip" sortable>
             </el-table-column>
@@ -66,15 +74,6 @@
                     name: ''
                 },
                 DataSource: [
-                    {
-                        name: '王小虎',
-                        group: '12af12f3f1d',
-                        version: '1.0.0',
-                        application: '应用',
-                        ip: 'localhost'
-                    }, {
-                        // 照这上边的格式渲染数据就行
-                    },
                 ],   // 这是列表里的数据
                 total: 0,
                 page: 1,
@@ -123,7 +122,23 @@
           },
           setOnmessageMessage (event) {
             // 根据服务器推送的消息做自己的业务处理
-            console.log('服务端返回：' + event.data)
+            // console.log(event.data);
+            let result = JSON.parse(event.data);
+            this.total = result.length;
+            // let temp = [];
+            this.DataSource = [];
+            for(let i=0; i<result.length; i++){
+              let obj = {
+                name: result[i].serviceName.match(/(\S*)version/)[1],
+                group: result[i].group,
+                version: result[i].serviceName.match(/version(\S*)/)[1],
+                application: result[i].loadBalance,
+                ip: result[i].ip
+              }
+              this.DataSource.push(obj)
+            }
+
+            console.log('服务端返回：' + result.toString())
           },
           setOncloseMessage () {
             console.log('WebSocket连接关闭    状态码：' + this.websocket.readyState)

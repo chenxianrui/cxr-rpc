@@ -1,5 +1,6 @@
 package com.example.crpcmonitor.monitor.zk;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.crpcmonitor.dto.ServiceInfo;
 import com.example.crpcmonitor.monitor.ServiceMonitor;
 import com.example.crpcmonitor.rbmq.websocket.WebSocketServer;
@@ -29,6 +30,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -51,6 +54,7 @@ public class ServiceMonitorImpl implements ServiceMonitor{
     private Map<String, ServiceInfo> serviceInfoMap = new ConcurrentHashMap<>();
     private static final String ZK_REGISTER_ROOT_PATH = "/my-rpc";  // zookeeper 下的路径
     private static String defaultZookeeperAddress = "47.99.67.211:2181";
+    private static int count = 0;
 
     public ServiceMonitorImpl() throws Exception {
         if (zkClient == null){
@@ -68,23 +72,38 @@ public class ServiceMonitorImpl implements ServiceMonitor{
     @Override
     public void updateServiceList() throws Exception {
         Map<String, ServiceInfo> updateServiceList = new ConcurrentHashMap<>();
+        List<ServiceInfo> serviceInfoList = new ArrayList<>();
         List<String> subList = zkClient.getChildren().forPath(ZK_REGISTER_ROOT_PATH);
+        List<ServiceInfo> serviceInfos = new ArrayList<>();
+        String ip = "";
         for (String subNode:subList){
             ServiceInfo serviceInfo = new ServiceInfo();
+            ip = zkClient.getChildren().forPath(ZK_REGISTER_ROOT_PATH+"/"+subNode).get(0);
             serviceInfo.setPath(ZK_REGISTER_ROOT_PATH+"/"+subNode);
+            serviceInfo.setIp(ip);
             serviceInfo.setServiceName(subNode);
             // 获取每个子节点下关联的服务器负载信息
             byte[] data = zkClient.getData().forPath(serviceInfo.getPath());
             serviceInfo.setLoadBalance(new String(data, "utf-8"));
+            serviceInfoList.add(serviceInfo);
             updateServiceList.put(serviceInfo.getPath(), serviceInfo);
         }
         serviceInfoMap = updateServiceList;
-        log.info("更新服务器列表："+serviceInfoMap);
+        for (ServiceInfo str : serviceInfoMap.values()) {
+            serviceInfos.add(str);
+        }
+        log.info("更新服务器列表："+serviceInfos);
     }
 
     @Override
     public void updateServiceLoadBalance(String serverNodePath) throws Exception {
+        if (count < 5){
+            count++;
+            return;
+        }
+        List<ServiceInfo> serviceInfos = new ArrayList<>();
         ServiceInfo serviceInfo = serviceInfoMap.get(serverNodePath);
+        serviceInfo.setGroup(ZK_REGISTER_ROOT_PATH);
         if (serviceInfo != null){
             //获取每个子节点下关联的服务器负载的信息
             byte[] data=zkClient.getData().forPath(serviceInfo.getPath());
@@ -94,7 +113,10 @@ public class ServiceMonitorImpl implements ServiceMonitor{
             log.info("更新服务器负载信息："+serviceInfo);
             log.info("服务器列表最新信息为："+serviceInfoMap);
         }
-        webSocketServer.sendInfo("更新服务器负载信息："+serviceInfo);
+        for (ServiceInfo str : serviceInfoMap.values()) {
+            serviceInfos.add(str);
+        }
+        webSocketServer.sendInfo(serviceInfos.toString());
     }
 
     @Override
@@ -133,5 +155,6 @@ public class ServiceMonitorImpl implements ServiceMonitor{
         log.info("成功注册 watcher!");
         childrenCache.start(PathChildrenCache.StartMode.POST_INITIALIZED_EVENT);
     }
+
 
 }

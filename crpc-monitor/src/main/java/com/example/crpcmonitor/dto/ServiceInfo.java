@@ -15,16 +15,25 @@ import lombok.*;
 @Builder
 @ToString
 public class ServiceInfo {
+    // 组
+    private String group;
     // 服务节点
     private String path;
     // 服务器名称
     private String serviceName;
     // 服务器负载量
     private String loadBalance;
+    // 服务器ip
+    private String ip;
 
     @Override
     public String toString() {
-        return " [服务器节点路径=" + path + ", 服务器名称=" + serviceName + ", 服务器负载=" + loadBalance + "]";
+        return  "{"+
+                "\"group\":\"" + group + '\"' +
+                ", \"path\":\"" + path + '\"' +
+                ", \"serviceName\":\"" + serviceName + '\"' +
+                ", \"loadBalance\":\"" + loadBalance + '\"' +
+                ", \"ip\":\"" + ip + '\"' +
+                '}';
     }
-
 }
