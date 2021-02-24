@@ -1,5 +1,5 @@
-## rpc-demo
-[rpc-demo](https://github.com/chenxianrui/cxr-rpc) 是一款基于 Netty+Kyro+Zookeeper 实现的简易版 RPC 框架。
+## cxr-rpc
+[cxr-rpc](https://github.com/chenxianrui/cxr-rpc) 是一款基于 Netty+Kyro+Zookeeper 实现的简易版 RPC 框架。
 
 
 ### RPC是什么
@@ -13,13 +13,13 @@ RPC（Remote Procedure Call） 是一种远程过程调用的协议，其让进�
 生产者再将接收到的数据经过反序列化成对象后寻找相应的接口与方法进行调用，最后再发送响应成功消息
 给消费端，告诉他调用方法与接口成功。
 ### 项目模块结构
-└─cxr-rcp
-    ├─crpc-admin
-    ├─crpc-example-client
-    ├─crpc-example-server
-    ├─crpc-monitor
-    ├─crpc-registry
-    └─crpc-remoting
+└─cxr-rcp<br/>
+&ensp;    ├─crpc-admin<br/>
+    ├─crpc-example-client<br/>
+    ├─crpc-example-server<br/>
+    ├─crpc-monitor<br/>
+    ├─crpc-registry<br/>
+    └─crpc-remoting<br/>
 
 ### 项目运行截图
 Server：
