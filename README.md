@@ -23,10 +23,8 @@ RPC（Remote Procedure Call） 是一种远程过程调用的协议，其让进�
 &nbsp;&nbsp;&nbsp;└─crpc-remoting（核心模块）<br/>
 
 ### 项目运行截图
-服务端：
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2021022416114326.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDMzMTE3Ng==,size_16,color_FFFFFF,t_70#pic_center)
-客户端：
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20210224161152898.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDMzMTE3Ng==,size_16,color_FFFFFF,t_70#pic_center)
-监控服务：
+服务监控：<br/>
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2021022416123761.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDMzMTE3Ng==,size_16,color_FFFFFF,t_70#pic_center)
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210224161207791.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDMzMTE3Ng==,size_16,color_FFFFFF,t_70#pic_center)
+
+    注：图片水印来自我的csdn博客
