@@ -52,7 +52,7 @@ public class ServiceMonitorImpl implements ServiceMonitor{
     private static final int MAX_RETRIES = 3;
     private static CuratorFramework zkClient;
     private Map<String, ServiceInfo> serviceInfoMap = new ConcurrentHashMap<>();
-    private static final String ZK_REGISTER_ROOT_PATH = "/my-rpc";  // zookeeper 下的路径
+    private static final String ZK_REGISTER_ROOT_PATH = "/cxr-rpc";  // zookeeper 下的路径
     private static String defaultZookeeperAddress = "47.99.67.211:2181";
     private static int count = 0;
 

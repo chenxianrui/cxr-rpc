@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Slf4j
 public class ZkServiceDiscovery implements ServiceDiscovery {
-    private final static String ZK_DEFAULT_PATH = "/my-rpc/";
+    private final static String ZK_DEFAULT_PATH = "/cxr-rpc/";
     private final LoadBalance loadBalance;
 
     public ZkServiceDiscovery(){
@@ -39,8 +39,13 @@ public class ZkServiceDiscovery implements ServiceDiscovery {
         // 使用节点增加一次
         try {
             byte[] oldLoadData = zkClient.getData().forPath(ZK_DEFAULT_PATH+rpcServiceName);
-            Integer loadData = Integer.valueOf(new String(oldLoadData, "utf-8"))+1;
-            zkClient.setData().forPath(ZK_DEFAULT_PATH+rpcServiceName, String.valueOf(loadData).getBytes());
+            if (oldLoadData == null){
+                zkClient.setData().forPath(ZK_DEFAULT_PATH+rpcServiceName, String.valueOf(1).getBytes());
+            }else {
+                Integer loadData = Integer.valueOf(new String(oldLoadData, "utf-8"))+1;
+                zkClient.setData().forPath(ZK_DEFAULT_PATH+rpcServiceName, String.valueOf(loadData).getBytes());
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

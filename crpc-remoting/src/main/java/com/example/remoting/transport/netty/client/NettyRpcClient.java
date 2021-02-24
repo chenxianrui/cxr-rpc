@@ -85,7 +85,7 @@ public final class NettyRpcClient implements RpcRequestTransport {
         CompletableFuture<RpcResponse<Object>> resultFuture = new CompletableFuture<>();
         // 通过 rpcRequest 构造rpc服务名称
         String rpcServiceName = rpcRequest.toRpcProperties().toRpcServiceName();
-        rpcServiceName = "com.example.cxrrpc.hello.HelloServicetest2version2";
+//        rpcServiceName = "com.example.cxrrpc.hello.HelloServicetest2version2";
 //        System.out.println(rpcServiceName);
         // 获取服务地址
         InetSocketAddress inetSocketAddress = serviceDiscovery.lookupService(rpcServiceName);

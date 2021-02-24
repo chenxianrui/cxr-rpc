@@ -11,12 +11,10 @@ import com.example.remoting.transport.netty.server.NettyRpcServer;
  */
 public class ServerMain {
     public static void main(String[] args) {
-//        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(ServerMain.class);
-//        NettyRpcServer nettyRpcServer = (NettyRpcServer) applicationContext.getBean("nettyRpcServer");
         NettyRpcServer nettyRpcServer = new NettyRpcServer();
         HelloService helloService2 = new HelloServiceImpl2();
         RpcServiceProperties rpcServiceProperties = RpcServiceProperties.builder()
-                .group("test3").version("version3").build();
+                .group("test3").version("version1.0").build();
         nettyRpcServer.registerService(helloService2, rpcServiceProperties);    // 服务端向 zookeeper 注册服务
         nettyRpcServer.start();
     }

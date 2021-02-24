@@ -15,10 +15,10 @@
             </el-form>
             <el-form :inline="true" :model="filters" style="float: right">
               <el-form-item>
-                <el-button type="primary" v-on:click="provide">提供者</el-button>
+                <el-button type="primary" v-on:click="provide">在线</el-button>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" v-on:click="consume">消费者</el-button>
+                <el-button type="primary" v-on:click="consume">全部</el-button>
               </el-form-item>
             </el-form>
         </el-col>

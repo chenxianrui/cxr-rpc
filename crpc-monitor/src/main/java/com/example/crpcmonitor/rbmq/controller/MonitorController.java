@@ -22,13 +22,7 @@ public class MonitorController {
 
     @Resource
     private ServiceMonitorImpl serviceMonitor;
-    /**
-     * @Author dingchengxiang
-     * @Description //TODO 测试websocket发送消息
-     * @Date 14:41 2019/11/12
-     * @Param []
-     * @return java.lang.String
-     **/
+
     @PostMapping("/sendAllWebSocket")
     public String test() throws Exception {
         String text="你们好！这是websocket群体发送！";

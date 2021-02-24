@@ -15,7 +15,7 @@ public class ProxyClient {
     public static void main(String[] args) {
         NettyClientTransport nettyClientTransport = new NettyClientTransport();
         RpcServiceProperties rpcServiceProperties = RpcServiceProperties.builder()
-                .group("test3").version("version3").build();
+                .group("test3").version("version1.0").build();
         RpcClientProxy rpcClientProxy = new RpcClientProxy(nettyClientTransport, rpcServiceProperties);
         HelloService helloService = rpcClientProxy.getProxy(HelloService.class);
         String hello = helloService.hello(new Hello("调用", " 成功"));

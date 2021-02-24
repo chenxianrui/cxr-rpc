@@ -71,7 +71,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
             }
         } finally {
-            //Ensure that ByteBuf is released, otherwise there may be memory leaks
+            // 确保释放 ByteBuf，否则可能存在内存泄漏
             ReferenceCountUtil.release(msg);
         }
     }
@@ -81,7 +81,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         if (evt instanceof IdleStateEvent) {
             IdleState state = ((IdleStateEvent) evt).state();
             if (state == IdleState.READER_IDLE) {
-                log.info("idle check happen, so close the connection");
+                log.info("发生空闲检查，因此关闭连接");
                 ctx.close();
             }
         } else {

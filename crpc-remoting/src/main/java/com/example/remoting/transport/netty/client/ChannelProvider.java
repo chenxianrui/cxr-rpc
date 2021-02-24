@@ -1,5 +1,6 @@
 package com.example.remoting.transport.netty.client;
 
+import com.example.remoting.entity.ServiceInfo;
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,9 +17,11 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class ChannelProvider {
     private final Map<String, Channel> channelMap;
+    private final Map<String, ServiceInfo> monitorMap;
 
     public ChannelProvider(){
         channelMap = new ConcurrentHashMap<>();
+        monitorMap = new ConcurrentHashMap<>();
     }
 
     public Channel get(InetSocketAddress inetSocketAddress){
@@ -51,5 +54,11 @@ public class ChannelProvider {
         String key = inetSocketAddress.toString();
         channelMap.remove(key);
         log.info("Channel map 数量：[{}]", channelMap.size());
+    }
+
+    // 获取在线的服务
+    public Map<String, ServiceInfo> getMonitorMap(){
+
+        return monitorMap;
     }
 }
